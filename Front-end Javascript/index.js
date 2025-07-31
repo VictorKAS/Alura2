@@ -5,7 +5,7 @@ const listaDeCompras = document.getElementById("lista-de-compras");
 let contador = 0;
 
 botaoAdicionar.addEventListener("click", (evento) => {
-    
+    const itemDaLista = criarItemDaLista();
     listaDeCompras.appendChild(itemDaLista);
     
     VerificaListaVazia();
