@@ -15,6 +15,10 @@ const listaDeTeclas = document.querySelectorAll('.tecla');
     tecla.onclick = function() {
         tocaSom(idAudio);
     }
+
+    tecla.onkeydown = function() {
+        tecla.classList.add('ativa');
+    }
 }
 
 
