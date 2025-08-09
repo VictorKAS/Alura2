@@ -68,15 +68,19 @@ inputUpload.addEventListener('change', async (event) => {
 const inputTags = document.getElementById("input-tags");
 const listaTags = document.getElementById("lista-tags");
 
+const tagsDisponiveis = [ "Front-end", "Back-end", "Full Stack", "JavaScript", "HTML", "CSS", "React", "Node.js", "Python", "Java", "C#", "PHP", "Ruby", "Swift", "Kotlin"];
+
 inputTags.addEventListener("keypress", (evento) => {
     if (evento.key === "Enter") {
         evento.preventDefault(); // Evita o envio do formulário
         const tagTexto = inputTags.value.trim();
-        if (tagTexto !== "") { // Verifica se o campo não está vazio
+        if (tagTexto !== ""  && tagsDisponiveis.includes(tagTexto)) { // Verifica se o campo não está vazio e se a tag é válida
             const tagNova = document.createElement("li");
             tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`;
             listaTags.appendChild(tagNova); // Adiciona a nova tag à lista
             inputTags.value = ""; // Limpa o campo de entrada
+        } else {
+            alert("Tag inválida ou não disponível. Por favor, escolha uma tag válida.");
         }
     }
 })
@@ -87,3 +91,11 @@ listaTags.addEventListener("click", (evento) => {
         listaTags.removeChild(tagParaRemover);
     }
 })
+
+async function VerificarTagsDisponiveis(tagTexto) {
+    return  new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(tagsDisponiveis.includes(tagTexto));
+        }, 1000); // Simula uma verificação assíncrona com um atraso de 1 segundo
+    })
+}
