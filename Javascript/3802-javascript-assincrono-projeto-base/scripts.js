@@ -17,4 +17,50 @@ document.getElementById('image-upload').addEventListener('change', function(even
         alert('A imagem deve ter no máximo 2MB.');
         return;
     }
-});
+}); 
+
+/* document.getElementById('imageInput').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Pegando o arquivo selecionado pelo usuário
+    if (file) {
+        const reader = new FileReader(); // Criando uma instância do FileReader
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview');
+            preview.src = e.target.result; // Atribuindo o resultado da leitura como fonte da imagem de pré-visualização
+            preview.style.display = 'block'; // Tornando a pré-visualização visível
+        };
+        reader.readAsDataURL(file); // Lendo o arquivo como um Data URL
+    }
+}); */
+
+function lerConteudoDoArquivo(arquivo) {
+    return new Promise((resolve, reject) => {
+        const leitor = new FileReader();
+        leitor.onload = () => {
+            resolve({url: leitor.result, nome: arquivo.name});
+        }
+
+        leitor.onerror = () => {
+            reject(`Erro ao ler o arquivo: ${arquivo.name}`);
+        }
+
+        leitor.readAsDataURL(arquivo);
+    });
+}
+
+const imagemPrincipal = document.querySelector(".main-image");
+const nomeDaImagem = document.querySelector(".container-imagem-nome p");
+
+inputUpload.addEventListener('change', async (event) => {
+    const arquivo = event.target.files[0];
+
+    if (arquivo) {
+        try {
+            const ConteudoDoArquivo = await lerConteudoDoArquivo(arquivo);
+            imagemPrincipal.src = ConteudoDoArquivo.url;
+            nomeDaImagem.textContent = ConteudoDoArquivo.nome;
+        } catch (erro) {
+            console.error("Erro ao ler o arquivo");
+            
+        }
+    }
+})
