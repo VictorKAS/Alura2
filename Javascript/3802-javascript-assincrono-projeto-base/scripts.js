@@ -99,3 +99,30 @@ async function VerificarTagsDisponiveis(tagTexto) {
         }, 1000); // Simula uma verificação assíncrona com um atraso de 1 segundo
     })
 }
+
+const botaoPublicar = document.querySelector(".botao-publicar");
+
+botaoPublicar.addEventListener("click", async (evento) => {
+    evento.preventDefault(); // Evita o envio do formulário
+    
+    const nomeDoProjeto = document.getElementById("nome").value;
+    const descricaoDoProjeto = document.getElementById("descricao").value;
+    const tags = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
+
+    console.log(nomeDoProjeto);
+    console.log(descricaoDoProjeto);
+    console.log(tags);
+})
+
+async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tags) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const deuCerto = Math.random() > 0.5; // Simula uma chance de sucesso de 80%
+            if (deuCerto) {
+                resolve("Projeto publicado com sucesso!");
+            } else {
+                reject("Erro ao publicar o projeto. Tente novamente mais tarde.");
+            }
+        }, 2000); // Simula uma publicação assíncrona com um atraso de 2 segundos
+    });
+}
