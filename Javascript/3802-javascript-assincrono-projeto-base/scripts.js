@@ -100,6 +100,19 @@ async function VerificarTagsDisponiveis(tagTexto) {
     })
 }
 
+async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tags) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const deuCerto = Math.random() > 0.2; // Simula uma chance de sucesso de 80%
+            if (deuCerto) {
+                resolve("Projeto publicado com sucesso!");
+            } else {
+                reject("Erro ao publicar o projeto. Tente novamente mais tarde.");
+            }
+        }, 2000); // Simula uma publicação assíncrona com um atraso de 2 segundos
+    });
+}
+
 const botaoPublicar = document.querySelector(".botao-publicar");
 
 botaoPublicar.addEventListener("click", async (evento) => {
@@ -109,20 +122,26 @@ botaoPublicar.addEventListener("click", async (evento) => {
     const descricaoDoProjeto = document.getElementById("descricao").value;
     const tags = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
 
-    console.log(nomeDoProjeto);
-    console.log(descricaoDoProjeto);
-    console.log(tags);
+    try {
+        const resultado = await publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tags);
+        console.log(resultado);
+        alert(resultado);
+    } catch (erro) {
+        console.log("Erro ao publicar o projeto:", erro);
+        alert("Erro ao publicar o projeto. Tente novamente mais tarde.");
+    }
 })
 
-async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tags) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const deuCerto = Math.random() > 0.5; // Simula uma chance de sucesso de 80%
-            if (deuCerto) {
-                resolve("Projeto publicado com sucesso!");
-            } else {
-                reject("Erro ao publicar o projeto. Tente novamente mais tarde.");
-            }
-        }, 2000); // Simula uma publicação assíncrona com um atraso de 2 segundos
-    });
-}
+const botaoDescartar = document.querySelector(".botao-descartar");
+
+botaoDescartar.addEventListener("click", (evento) => {
+    evento.preventDefault(); // Evita o envio do formulário
+   
+    const formulario = document.querySelector("form");
+    formulario.reset(); // Limpa todos os campos do formulário
+
+    imagemPrincipal.src = "./img/imagem1.png"; // Reseta a imagem principal
+    nomeDaImagem.textContent = "image_projeto.png"; // Reseta o nome
+
+    listaTags.innerHTML = ""; // Limpa a lista de tags
+})
