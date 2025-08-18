@@ -3,6 +3,8 @@
 
 // let paragrafo = document.querySelector('p');
 // paragrafo.innerHTML = "Digite um numero entre 0 e 10";
+let listaDeNumeroSorteados = [];
+let numeroLimite = 10;
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
 
@@ -38,7 +40,19 @@ function verificarChute() {
 }
 
 function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 11);
+    let numereEscolhido =  parseInt(Math.random() * 11);
+    let quantidadeDeNumerosSorteados = listaDeNumeroSorteados.length;
+
+    if  (quantidadeDeNumerosSorteados == numeroLimite) {
+        listaDeNumeroSorteados = [];
+    }
+    if (listaDeNumeroSorteados.includes(numereEscolhido)) {
+        return gerarNumeroAleatorio();
+    } else {
+        listaDeNumeroSorteados.push(numereEscolhido);
+        console.log(listaDeNumeroSorteados);
+        return numereEscolhido;
+    }
 }
 
 function limparCampo() {
