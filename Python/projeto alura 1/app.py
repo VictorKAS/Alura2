@@ -1,6 +1,6 @@
 import os
 
-restaurantes = ['pizza hut', 'outback', 'madero']
+restaurantes = [{'nome':'Praça', 'categoria':'Japonesa', 'ativo': False}, {}]
 
 def exibir_nome_do_app():
     print("""
